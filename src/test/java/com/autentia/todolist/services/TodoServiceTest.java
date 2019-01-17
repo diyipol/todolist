@@ -25,30 +25,30 @@ public class TodoServiceTest {
     private TodoService todoService;
 
     @Test
-    public void showOnlyDonesTodosTest() {
+    public void showOnlyPendingsTodosTest() {
 
-        boolean showOnlyDones = true;
+        boolean showOnlyPendings = true;
 
-        when(todoRepository.findByDone(showOnlyDones)).thenReturn(new ArrayList<>());
+        when(todoRepository.findByDone(false)).thenReturn(new ArrayList<>());
 
-        todoService.list(showOnlyDones);
+        todoService.list(showOnlyPendings);
 
-        verify(todoRepository, times(1)).findByDone(showOnlyDones);
+        verify(todoRepository, times(1)).findByDone(false);
         verify(todoRepository, never()).findAll();
     }
 
     @Test
     public void onlyDonesTodosAreReturned() {
 
-        boolean showOnlyDones = true;
+        boolean showOnlyPendings = true;
 
         List<Todo> todosExpected = new ArrayList<>();
         todosExpected.add(mock(Todo.class));
         todosExpected.add(mock(Todo.class));
 
-        when(todoRepository.findByDone(showOnlyDones)).thenReturn(todosExpected);
+        when(todoRepository.findByDone(false)).thenReturn(todosExpected);
 
-        List<Todo> todos = todoService.list(showOnlyDones);
+        List<Todo> todos = todoService.list(showOnlyPendings);
 
         assertThat(todos, is(todosExpected));
     }
@@ -56,20 +56,20 @@ public class TodoServiceTest {
     @Test
     public void showAllTodosTest() {
 
-        boolean showOnlyDones = false;
+        boolean showOnlyPendings = false;
 
         when(todoRepository.findAll()).thenReturn(new ArrayList<>());
 
-        todoService.list(showOnlyDones);
+        todoService.list(showOnlyPendings);
 
-        verify(todoRepository, never()).findByDone(showOnlyDones);
+        verify(todoRepository, never()).findByDone(false);
         verify(todoRepository, times(1)).findAll();
     }
 
     @Test
     public void allTodosAreReturned() {
 
-        boolean showOnlyDones = false;
+        boolean showOnlyPendings = false;
 
         List<Todo> todosExpected = new ArrayList<>();
         todosExpected.add(mock(Todo.class));
@@ -77,7 +77,7 @@ public class TodoServiceTest {
 
         when(todoRepository.findAll()).thenReturn(todosExpected);
 
-        List<Todo> todos = todoService.list(showOnlyDones);
+        List<Todo> todos = todoService.list(showOnlyPendings);
 
         assertThat(todos, is(todosExpected));
     }

@@ -16,10 +16,10 @@ public class TodoService {
         this.todoRepository = todoRepository;
     }
 
-    public List<Todo> list(boolean showOnlyDones) {
+    public List<Todo> list(boolean showOnlyPendings) {
 
-        if (showOnlyDones) {
-            return todoRepository.findByDone(showOnlyDones);
+        if (showOnlyPendings) {
+            return todoRepository.findByDone(false);
         }
 
         return IterableUtils.toList(todoRepository.findAll());
