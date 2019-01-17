@@ -1,6 +1,7 @@
 package com.autentia.todolist.services;
 
-import com.autentia.todolist.model.Todo;
+import com.autentia.todolist.model.dtos.CreateTodoCommand;
+import com.autentia.todolist.model.entities.Todo;
 import com.autentia.todolist.repositories.TodoRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -80,5 +81,41 @@ public class TodoServiceTest {
         List<Todo> todos = todoService.list(showOnlyPendings);
 
         assertThat(todos, is(todosExpected));
+    }
+
+    @Test
+    public void todoIsSavedInCreation() {
+
+        String description = "Some todo description";
+        CreateTodoCommand command = new CreateTodoCommand();
+        command.setDescription(description);
+
+        Todo todo = todoService.create(command);
+
+        verify(todoRepository, times(1)).save(todo);
+    }
+
+    @Test
+    public void todoIsCreatedWithDescription() {
+
+        String description = "Some todo description";
+        CreateTodoCommand command = new CreateTodoCommand();
+        command.setDescription(description);
+
+        Todo todo = todoService.create(command);
+
+        assertEquals(description, todo.getDescription());
+    }
+
+    @Test
+    public void todoIsCreatedAsPending() {
+
+        String description = "Some todo description";
+        CreateTodoCommand command = new CreateTodoCommand();
+        command.setDescription(description);
+
+        Todo todo = todoService.create(command);
+
+        assertEquals(false, todo.isDone());
     }
 }

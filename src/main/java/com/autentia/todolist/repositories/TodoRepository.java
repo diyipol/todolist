@@ -1,6 +1,6 @@
 package com.autentia.todolist.repositories;
 
-import com.autentia.todolist.model.Todo;
+import com.autentia.todolist.model.entities.Todo;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

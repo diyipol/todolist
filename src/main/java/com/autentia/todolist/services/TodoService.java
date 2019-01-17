@@ -1,6 +1,7 @@
 package com.autentia.todolist.services;
 
-import com.autentia.todolist.model.Todo;
+import com.autentia.todolist.model.dtos.CreateTodoCommand;
+import com.autentia.todolist.model.entities.Todo;
 import com.autentia.todolist.repositories.TodoRepository;
 import org.apache.commons.collections4.IterableUtils;
 import org.springframework.stereotype.Service;
@@ -23,5 +24,14 @@ public class TodoService {
         }
 
         return IterableUtils.toList(todoRepository.findAll());
+    }
+
+    public Todo create(CreateTodoCommand command) {
+
+        Todo todo = new Todo(command.getDescription());
+
+        todoRepository.save(todo);
+
+        return todo;
     }
 }

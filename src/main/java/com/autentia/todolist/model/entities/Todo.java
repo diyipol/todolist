@@ -1,4 +1,4 @@
-package com.autentia.todolist.model;
+package com.autentia.todolist.model.entities;
 
 import javax.persistence.*;
 
@@ -13,6 +13,22 @@ public class Todo {
     private String description;
 
     private boolean done;
+
+    public Todo() {
+    }
+
+    public Todo(String description) {
+        this.description = description;
+        this.done = false;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getDescription() {
         return description;
@@ -33,7 +49,8 @@ public class Todo {
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Todo{");
-        sb.append("description='").append(description).append('\'');
+        sb.append("id=").append(id);
+        sb.append(", description='").append(description).append('\'');
         sb.append(", done=").append(done);
         sb.append('}');
         return sb.toString();
