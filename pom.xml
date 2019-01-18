@@ -71,6 +71,8 @@
 	</dependencies>
 
 	<build>
+		<finalName>todolist</finalName>
+
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
